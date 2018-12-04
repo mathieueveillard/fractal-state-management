@@ -1,0 +1,131 @@
+$baseColor: #ffffff;
+$softContrastColor: #eeeeee;
+$hardContrastColor: #666666;
+$inverseColor: #333333;
+$warningColor: red;
+
+$softFont: 'Georgia';
+
+@mixin page() {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@mixin scrollable() {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 10rem 0;
+  overflow: scroll;
+}
+
+@mixin listItem() {
+  position: relative;
+  background-color: $softContrastColor;
+  cursor: pointer;
+
+  .avatar {
+    background-color: $softContrastColor;
+    color: $hardContrastColor;
+  }
+
+  .title {
+    color: $inverseColor;
+  }
+
+  .sub-title {
+    color: $hardContrastColor;
+  }
+}
+
+@mixin centerVertically() {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@mixin warning() {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0em 2em;
+  @include centerVertically();
+  color: $warningColor;
+}
+
+body {
+  background-color: $baseColor;
+  font-family: 'Roboto';
+
+  h1 {
+    font-size: 3em;
+  }
+
+  .product-list {
+    @include page();
+
+    .product-list-content {
+      @include scrollable();
+
+      .add {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+      }
+
+      .product-list-item {
+        @include listItem();
+
+        .warning {
+          @include warning();
+        }
+      }
+    }
+  }
+
+  .product-detail {
+    @include page();
+
+    .product-detail-content {
+      @include scrollable();
+
+      .name-container {
+        width: 100%;
+
+        .name {
+          font-size: 3em;
+        }
+      }
+
+      .measure-container {
+        .measure-option {
+          margin-right: 2em;
+        }
+      }
+
+      .batch-list {
+        .batch-list-content {
+          .batch-list-item {
+            @include listItem();
+
+            .warning {
+              @include warning();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .batch-detail {
+    @include page();
+
+    .batch-detail-content {
+      @include scrollable();
+    }
+  }
+}
