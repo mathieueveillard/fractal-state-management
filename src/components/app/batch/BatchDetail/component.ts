@@ -17,10 +17,10 @@ export type Sinks = BaseSinks<State>;
 
 export function BatchDetail({ DOM, state }: Sources): Sinks {
   const state$: Stream<State> = state.stream;
-  const { updateQuantityAction$, updateExpiryDateAction$ } = intent(DOM);
+  const { updateExpiryDateAction$ } = intent(DOM);
 
   return {
     DOM: view(state$),
-    state: reducer(updateQuantityAction$, updateExpiryDateAction$)
+    state: reducer(updateExpiryDateAction$)
   };
 }

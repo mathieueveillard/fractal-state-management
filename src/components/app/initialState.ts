@@ -70,7 +70,7 @@ export const INITIAL_STATE: State = {
     {
       id: '2a92112d-873a-410b-9a38-554098bca515',
       productId: '981ec4ca-71fc-43d1-a1db-63e5c9f28e53',
-      expiryDate: new Date(2018, 11, 15),
+      expiryDate: new Date(2018, 11, 20),
       quantity: 6
     }
   ]

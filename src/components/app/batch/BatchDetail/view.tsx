@@ -2,7 +2,6 @@ import { Stream } from 'xstream';
 import { VNode } from '@cycle/dom';
 import { upgradeElement } from '../../../../util';
 import { State, BatchWithProductData } from './component';
-import { measureToString, Measure } from '../../Product';
 import { DateTime } from 'luxon';
 
 const EXPIRY_DATE_PLACEHOLDER = 'Expiry date (YYYY-MM-DD)';
@@ -27,35 +26,8 @@ function makeBatchTitleView({ id, productName }: BatchWithProductData): VNode {
   );
 }
 
-function makeBatchEditView({ quantity, measure, expiryDate }: BatchWithProductData): VNode {
-  return (
-    <div className="content mdl-grid mdl-list">
-      {makeQuantityInput(quantity, measure)}
-      {makeExpiryDateInput(expiryDate)}
-    </div>
-  );
-}
-
-function makeQuantityInput(quantity: number | undefined, measure: Measure): VNode {
-  return (
-    <div className="mdl-cell mdl-cell--3-offset-desktop mdl-cell--6-col-desktop">
-      <div
-        className="quantity-container mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-        hook-insert={upgradeElement}
-      >
-        <input
-          data-action="updateQuantity"
-          className="quantity mdl-textfield__input"
-          type="text"
-          id="quantity"
-          value={quantity}
-        />
-        <label className="mdl-textfield__label" for="quantity">
-          {measureToString(measure)}
-        </label>
-      </div>
-    </div>
-  );
+function makeBatchEditView({ expiryDate }: BatchWithProductData): VNode {
+  return <div className="content mdl-grid mdl-list">{makeExpiryDateInput(expiryDate)}</div>;
 }
 
 function makeExpiryDateInput(expiryDate: Date | undefined): VNode {

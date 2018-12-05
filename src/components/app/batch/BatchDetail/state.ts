@@ -1,25 +1,10 @@
-import xs, { Stream } from 'xstream';
+import { Stream } from 'xstream';
 import { Reducer } from '@cycle/state';
 import { State } from './component';
-import { UpdateQuantityAction, UpdateExpiryDateAction } from './intent';
+import { UpdateExpiryDateAction } from './intent';
 
-export function reducer(
-  updateQuantityAction$: Stream<UpdateQuantityAction>,
-  updateExpiryDateAction$: Stream<UpdateExpiryDateAction>
-): Stream<Reducer<State>> {
-  return xs.merge(makeQuantityReducer(updateQuantityAction$), makeExpiryDateReducer(updateExpiryDateAction$));
-}
-
-function makeQuantityReducer(updateQuantityAction$: Stream<UpdateQuantityAction>): Stream<Reducer<State>> {
-  return updateQuantityAction$.map(
-    ({ quantity }: UpdateQuantityAction) =>
-      function(batchWithProductData: State): State {
-        return {
-          ...batchWithProductData,
-          quantity
-        };
-      }
-  );
+export function reducer(updateExpiryDateAction$: Stream<UpdateExpiryDateAction>): Stream<Reducer<State>> {
+  return makeExpiryDateReducer(updateExpiryDateAction$);
 }
 
 function makeExpiryDateReducer(updateExpiryDateAction$: Stream<UpdateExpiryDateAction>): Stream<Reducer<State>> {

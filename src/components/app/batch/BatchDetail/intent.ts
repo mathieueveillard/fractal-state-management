@@ -1,18 +1,6 @@
 import { Stream } from 'xstream';
 import { DOMSource } from '@cycle/dom';
 
-export interface UpdateQuantityAction {
-  type: 'UPDATE_QUANTITY';
-  quantity: number;
-}
-
-function makeUpdateQuantityAction(quantity: number): UpdateQuantityAction {
-  return {
-    type: 'UPDATE_QUANTITY',
-    quantity
-  };
-}
-
 export interface UpdateExpiryDateAction {
   type: 'UPDATE_EXPIRY_DATE';
   expiryDate: Date;
@@ -26,21 +14,13 @@ function makeUpdateExpiryDateAction(expiryDate: Date): UpdateExpiryDateAction {
 }
 
 interface Actions {
-  updateQuantityAction$: Stream<UpdateQuantityAction>;
   updateExpiryDateAction$: Stream<UpdateExpiryDateAction>;
 }
 
 export function intent(DOM: DOMSource): Actions {
   return {
-    updateQuantityAction$: getUpdateQuantityIntent(DOM),
     updateExpiryDateAction$: getUpdateExpiryDateIntent(DOM)
   };
-}
-
-function getUpdateQuantityIntent(DOM: DOMSource): Stream<UpdateQuantityAction> {
-  return DOM.select('[data-action="updateQuantity"]')
-    .events('input')
-    .map((event: any) => makeUpdateQuantityAction(event.target.value));
 }
 
 function getUpdateExpiryDateIntent(DOM: DOMSource): Stream<UpdateExpiryDateAction> {
